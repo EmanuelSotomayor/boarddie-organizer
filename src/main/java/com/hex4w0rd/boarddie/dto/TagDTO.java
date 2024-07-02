@@ -2,7 +2,6 @@ package com.hex4w0rd.boarddie.dto;
 
 import lombok.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -11,16 +10,8 @@ import java.util.Set;
 @Builder
 @EqualsAndHashCode
 @ToString
-public class UserDTO implements Serializable {
-
+public class TagDTO implements Serializable {
     private Long id;
-
-    private PersonDTO person;
-
-    private String email;
-
-    private String password;
-
-    private Set<RoleDTO> roles;
-
+    private String title;
+    private String colour;
 }

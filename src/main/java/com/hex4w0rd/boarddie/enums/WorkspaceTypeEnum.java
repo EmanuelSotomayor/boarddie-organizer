@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum WorkspaceTypeEnum {
+    DEFAULT,
     IT_ENGINEERING,
     LITTLE_ENTERPRISE,
     MIDDLE_ENTERPRISE,
