@@ -1,8 +1,10 @@
 package com.hex4w0rd.boarddie.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum RolEnum {
 
     VISITOR("VISITOR", "View-only user"),
@@ -16,10 +18,5 @@ public enum RolEnum {
 
     private final String code;
     private final String description;
-
-    private RolEnum(String code, String description) {
-        this.code = code;
-        this.description = description;
-    }
 
 }

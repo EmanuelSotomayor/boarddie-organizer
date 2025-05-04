@@ -9,26 +9,31 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "tags")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class Tag implements Serializable {
+@SuperBuilder(toBuilder = true)
+public class Tag extends PersistentEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "TAG_ID")
+    private UUID id;
     @Column(name = "TITLE", nullable = false)
     private String title;
     @Column(name = "COLOUR", nullable = false)
     private String colour;
     @ManyToMany(mappedBy = "tags")
     private Set<Card> cards;
+
 }

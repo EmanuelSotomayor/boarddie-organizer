@@ -9,46 +9,41 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class User implements UserDetails, Serializable {
+@SuperBuilder(toBuilder = true)
+public class User extends PersistentEntity implements UserDetails, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "USER_ID")
+    private UUID id;
 
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
-
-    @Column(name = "CREATED_AT", nullable = false)
-    private LocalDate createdAt;
 
     @OneToOne
     private Image profileImage;
@@ -64,9 +59,9 @@ public class User implements UserDetails, Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.userRolWorkspaces.stream()
-                .map(userRol -> userRol.getRole())
+                .map(UserRolWorkspace::getRole)
                 .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getCode()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -97,11 +92,6 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @PrePersist
-    public void init(){
-        this.createdAt = LocalDate.now();
     }
 
 }

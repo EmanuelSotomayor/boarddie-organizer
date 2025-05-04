@@ -14,28 +14,30 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class Card implements Serializable {
+@SuperBuilder(toBuilder = true)
+public class Card extends PersistentEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @jakarta.persistence.Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @jakarta.persistence.Column(name = "CARD_ID")
+    private UUID id;
     @jakarta.persistence.Column(name = "TITLE", nullable = false)
     private String title;
     @jakarta.persistence.Column(name = "DESCRIPTION", nullable = false)
@@ -55,21 +57,7 @@ public class Card implements Serializable {
             @JoinColumn(name = "TAG_ID", nullable = false)
     })
     private Set<Tag> tags;
-    @jakarta.persistence.Column(name = "CREATED_AT", nullable = false)
-    private LocalDate createdAt;
-    @jakarta.persistence.Column(name = "START_AT")
-    private LocalDate startAt;
-    @jakarta.persistence.Column(name = "END_AT")
-    private LocalDate endAt;
-    @jakarta.persistence.Column(name = "USER_ID_CREATOR")
-    private Long userIdCreator;
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> members;
-
-
-    @PrePersist
-    private void init(){
-        this.createdAt = LocalDate.now();
-    }
 
 }

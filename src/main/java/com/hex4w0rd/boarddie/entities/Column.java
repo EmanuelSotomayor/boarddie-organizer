@@ -1,29 +1,32 @@
 package com.hex4w0rd.boarddie.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "board_columns")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class Column implements Serializable {
+@SuperBuilder(toBuilder = true)
+public class Column extends PersistentEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @jakarta.persistence.Column(name = "COLUMN_ID")
+    private UUID id;
     @jakarta.persistence.Column(name = "TITLE", nullable = false)
     private String title;
     @jakarta.persistence.Column(name = "IS_DEFAULT", nullable = false)

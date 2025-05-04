@@ -2,15 +2,19 @@ package com.hex4w0rd.boarddie.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
 public class UserLoginRequest implements Serializable {
+
     private String email;
     private String password;
+
 }

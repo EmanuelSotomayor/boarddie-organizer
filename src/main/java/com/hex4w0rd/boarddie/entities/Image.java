@@ -9,22 +9,26 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "images")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class Image implements Serializable {
+@SuperBuilder(toBuilder = true)
+public class Image extends PersistentEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "IMAGE_ID")
+    private UUID id;
     @Column(name = "TITLE")
     private String title;
     @Column(name = "SIZE")
@@ -32,4 +36,5 @@ public class Image implements Serializable {
     @Lob
     @Column(name = "HASH", columnDefinition = "VARBINARY(MAX)")
     private byte[] hash;
+
 }

@@ -14,23 +14,27 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "boards")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@Builder
-public class Board implements Serializable {
+@SuperBuilder(toBuilder = true)
+public class Board extends PersistentEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @jakarta.persistence.Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @jakarta.persistence.Column(name = "BOARD_ID")
+    private UUID id;
     @jakarta.persistence.Column(name = "TITLE")
     private String title;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
@@ -46,4 +50,5 @@ public class Board implements Serializable {
     private BoardVisibilityEnum visibility;
     @jakarta.persistence.Column(name = "IS_FAVORITE")
     private Boolean favorite;
+
 }
