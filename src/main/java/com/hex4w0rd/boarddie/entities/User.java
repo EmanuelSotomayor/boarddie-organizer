@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,8 +61,8 @@ public class User extends PersistentEntity implements UserDetails, Serializable 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.userRolWorkspaces.stream()
                 .map(UserRolWorkspace::getRole)
-                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getCode()))
-                .toList();
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getCode()))
+                .collect(Collectors.toList());
     }
 
     @Override

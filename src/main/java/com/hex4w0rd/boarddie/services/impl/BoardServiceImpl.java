@@ -6,25 +6,21 @@ import com.hex4w0rd.boarddie.repositories.BoardRepository;
 import com.hex4w0rd.boarddie.request.BoardUpdateRequest;
 import com.hex4w0rd.boarddie.services.IBoardService;
 import com.hex4w0rd.boarddie.services.IMessageService;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class BoardServiceImpl implements IBoardService {
 
     private final BoardRepository boardRepository;
     private final ModelMapper modelMapper;
     private final IMessageService messageService;
-
-    public BoardServiceImpl(BoardRepository boardRepository, ModelMapper modelMapper,
-                            IMessageService messageService){
-        this.boardRepository = boardRepository;
-        this.modelMapper = modelMapper;
-        this.messageService = messageService;
-    }
 
     @Override
     public BoardDTO saveBoard(BoardDTO boardDTO) {
@@ -32,17 +28,17 @@ public class BoardServiceImpl implements IBoardService {
     }
 
     @Override
-    public BoardDTO updateBoardById(Long id, BoardUpdateRequest boardUpdateRequest) {
+    public BoardDTO updateBoardById(UUID id, BoardUpdateRequest boardUpdateRequest) {
         return null;
     }
 
     @Override
-    public Boolean deleteBoardById(Long id) {
+    public Boolean deleteBoardById(UUID id) {
         return null;
     }
 
     @Override
-    public BoardDTO getBoardById(Long id) {
+    public BoardDTO getBoardById(UUID id) {
         return null;
     }
 
@@ -57,17 +53,17 @@ public class BoardServiceImpl implements IBoardService {
     }
 
     @Override
-    public Boolean addColumnToBoard(Long boardId, ColumnDTO columnDTO) {
+    public Boolean addColumnToBoard(UUID boardId, ColumnDTO columnDTO) {
         return null;
     }
 
     @Override
-    public Boolean deleteColumnOfBoard(Long boardId, Long columnId) {
+    public Boolean deleteColumnOfBoard(UUID boardId, UUID columnId) {
         return null;
     }
 
     @Override
-    public Boolean updateColumnOfBoard(Long boardId, Long columnId, ColumnDTO columnDTO) {
+    public Boolean updateColumnOfBoard(UUID boardId, UUID columnId, ColumnDTO columnDTO) {
         return null;
     }
 

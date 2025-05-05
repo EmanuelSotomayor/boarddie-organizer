@@ -35,7 +35,7 @@ public class UserRolWorkspace extends PersistentEntity implements Serializable {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "ROL_ID")
+    @JoinColumn(name = "ROLE_ID")
     private Role role;
 
     @ManyToOne

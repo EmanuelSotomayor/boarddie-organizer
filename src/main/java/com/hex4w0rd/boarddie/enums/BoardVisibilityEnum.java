@@ -1,10 +1,8 @@
 package com.hex4w0rd.boarddie.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum BoardVisibilityEnum {
 
     PUBLIC("PUBLIC", "Public Board for all invited users"),
@@ -12,7 +10,12 @@ public enum BoardVisibilityEnum {
     WORKSPACE("WORKSPACE", "Workspace Board only for invited users"),
     ARCHIVED("ARCHIVED", "Archived Board");
 
-    private final String code;
+    private final String value;
     private final String description;
+
+    BoardVisibilityEnum(String value, String description) {
+        this.value = value;
+        this.description = description;
+    }
 
 }
